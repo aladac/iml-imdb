@@ -6,11 +6,9 @@
 
 [![IML](https://github.com/aladac/iml/raw/master/doc/iml-logo.png)](https://rubygems.org/gems/iml)
 
-*Intricate (Media) Matching Logic*
+*Intricate (Media) Matching Logic IMDB Extension*  
 
-This is a media file handling library which is supposed to "guess" the intended type of media file based on specific naming patterns.
-Its main purpose is to serve as runtime for renaming media files according to specified patterns.
-The gem includes an executable `iml` through which rename operations are possible.
+This is an exstension to the `iml` gem. It allows simple IMDB query/search operations.
 
 ## Installation
 
@@ -19,7 +17,7 @@ This gem requires ruby >= 2.4
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'iml'
+gem 'iml-imdb'
 ```
 
 And then execute:
@@ -28,34 +26,22 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install iml
+    $ gem install iml-imdb
 
 ## Usage
-
-### Command Line
-
-```
-Usage: iml [options] MEDIA_FILE [MEDIA_FILE] ...
-    -v, --[no-]verbose               Run verbosely
-    -p, --[no-]pretend               Dry run, do not move any files
-    -t, --target PATH                Path to move media files to, default: current directory
-    -o, --movie-format FORMAT        Format of the output path of movies, default: '%T (%Y).%f'
-    -O, --tv-format FORMAT           Format of the output path of TV series, default: '%T/Season %s/%T - S%SE%E.%f'
-    -l, --list-formats               Format description
-    -f, --force                      Use the force, override output files
-
-$ iml -v Some.Cool.Movie.2018.1080p.BRRip.x264.aac-GROUP.mp4
-I, [2018-07-06T13:38:29.836887 #70771]  INFO -- : Some.Cool.Movie.2018.1080p.BRRip.x264.aac-GROUP.mp4 looks like a movie
-I, [2018-07-06T13:38:29.837047 #70771]  INFO -- : Moving Some.Cool.Movie.2018.1080p.BRRip.x264.aac-GROUP.mp4 to Some Cool Movie (2018).mp4
-```
-
 ### Code
 
 ```ruby
-title = "An.Interesting.TV.Show.S01E01.1080p.WEBRIP.h265-GROUP.mkv"
-=> "An.Interesting.TV.Show.S01E01.1080p.WEBRIP.h265-GROUP.mkv"
-IML::Text.new(title).detect
-=> #<IML::TVSeries title="An Interesting Tv Show", season="01", episode="01", quality="1080p", source="WEBRIP", codec="h265", group="GROUP", extension="mkv">
+search = IML::IMDB.new('transformers')
+search.result
+=> [#<IML::Movie title="Transformers", href="/title/tt0418279/?ref_=fn_al_tt_1", year="2007">,
+    #<IML::TVSeries title="The Transformers", href="/title/tt0086817/?ref_=fn_al_tt_2", year="1984">,
+    #<IML::Movie title="The Transformers: The Movie", href="/title/tt0092106/?ref_=fn_al_tt_3", year="1986">]
+
+movie = IML::Movie.new(title: 'Transformers')
+=> #<IML::Movie title="Transformers">
+movie.imdb
+=> #<IML::Movie title="Transformers", year="2007", director="Michael Bay", rating="7.1", writer="Roberto Orci, Alex Kurtzman, DreamWorks, Paramount Pictures, Hasbro", summary="An ancient struggle between two Cybertronian races, the heroic Autobots and the evil Decepticons, comes to Earth, with a clue to the ultimate power held by a teenager.", actors="Shia LaBeouf, Megan Fox, Josh Duhamel">
 ```
 
 ## License
