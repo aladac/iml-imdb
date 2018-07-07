@@ -1,6 +1,5 @@
 dependencies:
-  activesupport: ~> 5.2
-  tqdm: ~> 0.3
+  iml: ~> 0.1
   nokogiri: ~> 1.8
 
 development_dependencies:
