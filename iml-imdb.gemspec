@@ -12,8 +12,8 @@ Gem::Specification.new do |spec|
   spec.authors       = ['Adam Ladachowski']
   spec.email         = ['adam.ladachowski@gmail.com']
 
-  spec.summary       = 'Media string and object manipulation library'
-  spec.description   = 'Library which parses strings into media objects'
+  spec.summary       = 'Media string and object manipulation library - IMDB extension'
+  spec.description   = 'Library which queries and parses data from IMDB'
   spec.homepage      = 'https://github.com/aladac/iml-imdb'
   spec.license       = 'MIT'
 
